@@ -1,0 +1,50 @@
+---
+    apiVersion: "v1"
+    kind: "Namespace"
+    metadata:
+      name: "platoplanner"
+    ---
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      name: "platoplanner-backend"
+      namespace: "platoplanner"
+      labels:
+        app: "platoplanner-backend"
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          app: "platoplanner-backend"
+      template:
+        metadata:
+          labels:
+            app: "platoplanner-backend"
+        spec:
+          containers:
+          - name: "platoplanner-backend-container-1"
+            image: "gcr.io/platoplanner-backend/github.com/faqima01/platoplanner_backend_container:$SHORT_SHA"
+            imagePullPolicy: IfNotPresent
+            ports:
+            - containerPort: 3000
+    ---
+    apiVersion: "autoscaling/v2beta1"
+    kind: "HorizontalPodAutoscaler"
+    metadata:
+      name: "platoplanner-backend-hpa-klug"
+      namespace: "platoplanner"
+      labels:
+        app: "platoplanner-backend"
+    spec:
+      scaleTargetRef:
+        kind: "Deployment"
+        name: "platoplanner-backend"
+        apiVersion: "apps/v1"
+      minReplicas: 1
+      maxReplicas: 5
+      metrics:
+      - type: "Resource"
+        resource:
+          name: "cpu"
+          targetAverageUtilization: 80
+    

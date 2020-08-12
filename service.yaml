@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+  finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    app: platoplanner-backend
+  name: platoplanner-backend-service
+  namespace: platoplanner
+  resourceVersion: '12894'
+  selfLink: /api/v1/namespaces/platoplanner/services/platoplanner-backend-service
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+    - nodePort: 30464
+      port: 80
+      protocol: TCP
+      targetPort: 3000
+  selector:
+    app: platoplanner-backend
+  sessionAffinity: None
+  type: LoadBalancer
