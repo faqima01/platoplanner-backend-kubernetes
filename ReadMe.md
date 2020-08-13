@@ -18,7 +18,7 @@ Plato Planner's backend is built on Node.js and Express.js with Mongoose as data
 
 ## How much it costs?
 
-I deployed it on the most affordable cluster with 3 replicas on my Google Cloud free-tier period with $300 credit. It costs around $2-3 per day. I did it for experimentation and learning more about Kubernetes. Do it at your own cost!
+I deployed it on the most affordable cluster with 3 replicas on my Google Cloud free-tier period with \$300 credit. It depends on the amount of request to your backend. I did it for experimentation and learning more about Kubernetes. Do it at your own cost!
 
 ## Contributing (if applicable)
 
